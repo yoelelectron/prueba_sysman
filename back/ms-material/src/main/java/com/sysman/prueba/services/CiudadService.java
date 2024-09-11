@@ -1,9 +1,7 @@
 package com.sysman.prueba.services;
 
 import com.sysman.prueba.DTO.CiudadResponseDTO;
-import com.sysman.prueba.DTO.MaterialResponseDTO;
 import com.sysman.prueba.entities.Ciudad;
-import com.sysman.prueba.entities.Material;
 import com.sysman.prueba.repositories.CiudadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

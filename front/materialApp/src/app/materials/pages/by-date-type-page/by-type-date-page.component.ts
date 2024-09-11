@@ -1,0 +1,30 @@
+import { Component } from '@angular/core';
+import { MaterialsService } from '../../services/materials.service';
+import { Material } from '../../interfaces/material';
+
+@Component({
+  selector: 'app-by-type-date-page',
+  templateUrl: './by-type-date-page.component.html',
+  styleUrl: './by-type-date-page.component.css'
+})
+export class ByTypeDatePageComponent {
+
+  public materials:Material[] = [];
+  public purchaseDate:any;
+
+  constructor(readonly _materialServices : MaterialsService){
+
+  }
+
+  searchbyDateAndType(term:string):void{
+    console.log(term);
+    console.log(String(this.purchaseDate).substring(0,10))
+    const date = String(this.purchaseDate).substring(0,10)
+
+    this._materialServices.searchByTypeAndPurchaseDate(term,date)
+      .subscribe( (materials: Material[]) => {
+        this.materials = materials
+      });
+  }
+
+}

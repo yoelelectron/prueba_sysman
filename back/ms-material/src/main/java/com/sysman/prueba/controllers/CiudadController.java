@@ -1,7 +1,6 @@
 package com.sysman.prueba.controllers;
 
 import com.sysman.prueba.DTO.CiudadResponseDTO;
-import com.sysman.prueba.DTO.MaterialResponseDTO;
 import com.sysman.prueba.services.CiudadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,0 +1,19 @@
+<h2>By Purchase Date and Type</h2>
+<hr>
+
+<div class="row">
+  <div class="col">
+    <label>Select a date: </label>
+    <br>
+    <input [(ngModel)]="purchaseDate" type="date" name="purchaseDate" id="purchaseDate">
+    <hr>
+    <app-search-box (onValue)="searchbyDateAndType($event)" placeholder="type the value and presspress the Enter Key."></app-search-box>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col">
+    <app-material-table [materials]="materials"></app-material-table>
+  </div>
+</div>
+

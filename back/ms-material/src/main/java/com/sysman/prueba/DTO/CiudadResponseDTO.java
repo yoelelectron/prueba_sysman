@@ -12,10 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CiudadResponseDTO {
-
     private Long codigo;
-
     private String nombre;
-
     private Departamento departamento;
 }
