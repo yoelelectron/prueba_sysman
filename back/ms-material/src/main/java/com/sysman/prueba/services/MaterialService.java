@@ -35,20 +35,29 @@ public class MaterialService {
         return this.materialRepository.findByCiudad(city);
     }
 
-    public void create(MaterialDTO materialRequest) {
-        Material material = Material.builder()
-                .nombre(materialRequest.getNombre())
-                .descripcion(materialRequest.getDescripcion())
-                .tipo(materialRequest.getTipo())
-                .precio(materialRequest.getPrecio())
-                .fechaCompra(materialRequest.getFechaCompra())
-                .fechaVenta(materialRequest.getFechaVenta())
-                .estado(materialRequest.getEstado())
-                .ciudad(materialRequest.getCiudad())
-                .build();
 
-        this.materialRepository.save(material);
-        log.info("Material {} is saved", material.getId());
+    public void create(MaterialDTO materialRequest) {
+
+        if(materialRequest.getFechaCompra().isAfter(materialRequest.getFechaVenta())){
+            log.info("{} cannot be stored because purchase date is higher than selling date", materialRequest.getNombre());
+            throw new Error("Dates are not good");
+        } else {
+            Material material = Material.builder()
+                    .nombre(materialRequest.getNombre())
+                    .descripcion(materialRequest.getDescripcion())
+                    .tipo(materialRequest.getTipo())
+                    .precio(materialRequest.getPrecio())
+                    .fechaCompra(materialRequest.getFechaCompra())
+                    .fechaVenta(materialRequest.getFechaVenta())
+                    .estado(materialRequest.getEstado().name().toLowerCase())
+                    .ciudad(materialRequest.getCiudad())
+                    .build();
+
+            this.materialRepository.save(material);
+            log.info("Material {} is saved", material.getId());
+        }
+
+
     }
 
     public boolean exists(long id) {

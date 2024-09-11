@@ -39,7 +39,7 @@ public class Material {
     @Column(nullable = false)
     private String estado;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "ciudad")
     private Ciudad ciudad;
 

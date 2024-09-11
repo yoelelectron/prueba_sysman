@@ -2,6 +2,7 @@ package com.sysman.prueba.DTO;
 
 import com.sysman.prueba.entities.Ciudad;
 
+import com.sysman.prueba.enums.Estado;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +28,7 @@ public class MaterialDTO {
 
     private LocalDate fechaVenta;
 
-    private String estado;
+    private Estado estado;
 
     private Ciudad ciudad;
 }

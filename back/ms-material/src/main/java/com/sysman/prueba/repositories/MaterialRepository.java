@@ -13,7 +13,8 @@ public interface MaterialRepository extends JpaRepository<Material, Long> {
 
     List<Material> findByTipoAndFechaCompra(String tipo, LocalDate fechaCompra);
 
-    @Query(value = "SELECT m.* FROM t_material m JOIN t_ciudad c ON m.ciudad = c.codigo WHERE c.nombre = :ciudad", nativeQuery = true)
+    @Query(value = "SELECT m.* FROM t_material m JOIN t_ciudad c ON m.ciudad = c.codigo " +
+            "WHERE c.nombre = :ciudad", nativeQuery = true)
     List<Material> findByCiudad(String ciudad);
 
     Material save(Material material);
