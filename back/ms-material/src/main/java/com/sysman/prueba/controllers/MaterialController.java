@@ -1,5 +1,7 @@
 package com.sysman.prueba.controllers;
 
+import com.sysman.prueba.DTO.MaterialDTO;
+import com.sysman.prueba.DTO.MaterialResponseDTO;
 import com.sysman.prueba.entities.Material;
 import com.sysman.prueba.services.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +23,20 @@ public class MaterialController {
         this.materialService = materialService;
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<Material>> getAll(){
+//        return ResponseEntity.ok(this.materialService.findAll());
+//    }
     @GetMapping
-    public ResponseEntity<List<Material>> getAll(){
-        return ResponseEntity.ok(this.materialService.findAll());
+    @ResponseStatus(HttpStatus.OK)
+    public List<MaterialResponseDTO> getAll() {
+        return this.materialService.findAll();
     }
 
     @PostMapping
-    public ResponseEntity<Material> save(@RequestBody Material material){
-        return new ResponseEntity<>(this.materialService.create(material), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void save(@RequestBody MaterialDTO materialRequest){
+        this.materialService.create(materialRequest);
     }
 
     @PutMapping
@@ -40,8 +48,9 @@ public class MaterialController {
     }
 
     @GetMapping("/porTipoYfecha")
-    public ResponseEntity<List<Material>> getByKindAndPurchaseDate(@RequestParam String kind, @RequestParam LocalDate date){
-        return ResponseEntity.ok(this.materialService.findByTypeAndPurchaseDate(kind, date));
+    public ResponseEntity<List<Material>> getByKindAndPurchaseDate(@RequestParam String type,
+                                                                   @RequestParam LocalDate purchaseDate){
+        return ResponseEntity.ok(this.materialService.findByTypeAndPurchaseDate(type, purchaseDate));
     }
 
     @GetMapping("/porCiudad/{city}")
