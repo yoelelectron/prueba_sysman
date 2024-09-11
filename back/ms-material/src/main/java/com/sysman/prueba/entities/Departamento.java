@@ -16,11 +16,8 @@ public class Departamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "departamento_id", nullable = false)
-    private Long id;
-
-    @Column(nullable = false, length = 60)
-    private String codigo;
+    @Column(name = "codigo", nullable = false)
+    private Long codigo;
 
     @Column(nullable = false, length = 150)
     private String nombre;

@@ -16,17 +16,14 @@ public class Ciudad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ciudad_id", nullable = false)
-    private Long id;
-
-    @Column(nullable = false, length = 60)
-    private String codigo;
+    @Column(name = "codigo", nullable = false)
+    private Long codigo;
 
     @Column(nullable = false, length = 150)
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "departamento_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "departamento")
     private Departamento departamento;
 
 }
