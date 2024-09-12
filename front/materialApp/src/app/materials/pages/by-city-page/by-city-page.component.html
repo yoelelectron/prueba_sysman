@@ -1,0 +1,14 @@
+<h2 class="text-center">Busqueda por ciudad</h2>
+<hr>
+
+<div class="row">
+  <div class="col">
+    <app-search-box (onValue)="searchByCity($event)" placeholder="Digite el valor de búsqueda y presione enter"></app-search-box>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col">
+    <app-material-table [materials]="materials"></app-material-table>
+  </div>
+</div>

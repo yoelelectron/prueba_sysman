@@ -1,0 +1,17 @@
+<ng-template #loading>
+  <div class="alert alert-info text-center">
+    Wait please...
+  </div>
+</ng-template>
+
+<div *ngIf="materials; else loading" class="text-center">
+  <h2>Home</h2>
+  <hr>
+
+
+  <div class="row">
+    <div class="col">
+      <app-material-table [materials]="materials"></app-material-table>
+    </div>
+  </div>
+</div>

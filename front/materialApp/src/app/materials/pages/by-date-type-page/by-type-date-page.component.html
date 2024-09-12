@@ -1,0 +1,18 @@
+<h2 class="text-center">Búsqueda por tipo y fecha de compra</h2>
+<hr>
+
+<div class="row">
+  <div class="col">
+    <label>Seleccione una fecha: </label>
+    <br>
+    <input [(ngModel)]="purchaseDate" type="date" name="purchaseDate" id="purchaseDate" class="form-control text-center">
+    <hr>
+    <app-search-box (onValue)="searchbyDateAndType($event)" placeholder="Digite el valor de búsqueda y presione enter"></app-search-box>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col">
+    <app-material-table [materials]="materials"></app-material-table>
+  </div>
+</div>

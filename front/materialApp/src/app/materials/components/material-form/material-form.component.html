@@ -1,0 +1,71 @@
+<div class="text-center margins mb-5">
+  <h2>{{ material ? 'Editar Material' : 'Crear Material'}}</h2>
+  <hr>
+
+  <form [formGroup]="materialForm" (ngSubmit)="save()">
+
+    <!-- Campo Nombre -->
+    <div [style]="material ? 'display:block;' : 'display:none;'" class="mb-2">
+      <label for="id" class="form-label">Id:</label>
+      <input class="form-control text-center" [value]="materialForm.get('id')?.value" id="id" formControlName="id" readonly/>
+    </div>
+
+
+    <!-- Campo Nombre -->
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre:</label>
+      <input class="form-control text-center" id="nombre" formControlName="nombre" type="text" />
+    </div>
+
+    <!-- Campo Descripción -->
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción:</label>
+      <input class="form-control text-center" id="descripcion" formControlName="descripcion" type="text" />
+    </div>
+
+    <!-- Campo Tipo -->
+    <div class="mb-3">
+      <label for="tipo" class="form-label">Tipo:</label>
+      <input class="form-control text-center" id="tipo" formControlName="tipo" type="text" />
+    </div>
+
+    <!-- Campo Precio -->
+    <div class="mb-3">
+      <label for="precio" class="form-label">Precio:</label>
+      <input class="form-control text-center" id="precio" formControlName="precio" type="number" />
+    </div>
+
+    <!-- Campo Fecha Compra -->
+    <div class="mb-3">
+      <label for="fechaCompra" class="form-label">Fecha de Compra:</label>
+      <input class="form-control text-center" id="fechaCompra" formControlName="fechaCompra" type="date" />
+    </div>
+
+    <!-- Campo Fecha Venta -->
+    <div class="mb-3">
+      <label for="fechaVenta" class="form-label">Fecha de Venta:</label>
+      <input class="form-control text-center" id="fechaVenta" formControlName="fechaVenta" type="date" />
+    </div>
+
+    <!-- Campo Estado (Select) -->
+    <div class="mb-3">
+      <label for="estado" class="form-label">Estado:</label>
+      <select class="form-select" id="estado" formControlName="estado">
+        <option *ngFor="let estado of estados" [ngValue]="estado">{{ estado }}</option>
+      </select>
+    </div>
+
+    <!-- Campo Ciudad (Select) -->
+    <div class="mb-5">
+      <label for="ciudad" class="form-label">Ciudad:</label>
+      <select class="form-select" id="ciudad" formControlName="ciudad">
+        <option *ngFor="let ciudad of ciudades" [ngValue]="ciudad">{{ ciudad.nombre }}</option>
+      </select>
+    </div>
+
+
+    <!-- Botón de envío -->
+    <button type="submit" class="btn btn-success" style="width: 100%;">{{ material ? 'Editar' : 'Crear' }}</button>
+  </form>
+  <button (click)="cosa()" *ngIf="material" class="btn btn-secondary mt-3" style="width: 100%;" >Regresar</button>
+</div>

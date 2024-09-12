@@ -1,0 +1,38 @@
+<button class="btn btn-success mb-3" (click)="createNewMaterial()">Crear Nuevo Material</button>
+
+<div *ngIf="materials.length === 0; else table" class="alert alert-warning text-center">
+  There are no results with the query provided that matches
+</div>
+
+<ng-template #table>
+  <table class="table table-dark table-hover text-center">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Tipo</th>
+        <th>Precio</th>
+        <th>Fecha de Compra</th>
+        <th>Fecha de Venta</th>
+        <th>Estado</th>
+        <th>Ciudad</th>
+        <th>Actualizar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let material of materials">
+        <td>{{ material.nombre }}</td>
+        <td>{{ material.descripcion }}</td>
+        <td>{{ material.tipo }}</td>
+        <td>{{ material.precio }}</td>
+        <td>{{ material.fechaCompra }}</td>
+        <td>{{ material.fechaVenta }}</td>
+        <td>{{ material.estado }}</td>
+        <td>{{ material.ciudad.nombre }}</td>
+        <td> <button class="btn btn-info" (click)="selectMaterial(material)">
+          Editar
+          </button></td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
