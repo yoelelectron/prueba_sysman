@@ -17,18 +17,11 @@ import java.time.LocalDate;
 public class MaterialDTO {
 
     private String nombre;
-
     private String descripcion;
-
     private String tipo;
-
     private Double precio;
-
     private LocalDate fechaCompra;
-
     private LocalDate fechaVenta;
-
     private Estado estado;
-
     private Ciudad ciudad;
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/material")
@@ -23,10 +24,6 @@ public class MaterialController {
         this.materialService = materialService;
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<Material>> getAll(){
-//        return ResponseEntity.ok(this.materialService.findAll());
-//    }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<MaterialResponseDTO> getAll() {
@@ -57,4 +54,9 @@ public class MaterialController {
     public ResponseEntity<List<Material>> getByCity(@PathVariable("city") String city){
         return ResponseEntity.ok(this.materialService.findByCity(city));
     }
+
+/*    @GetMapping("/id/{id}")
+    public ResponseEntity<Optional<Material>> getById(@PathVariable("id") Long id){
+        return ResponseEntity.ok(this.materialService.getById(id));
+    }*/
 }

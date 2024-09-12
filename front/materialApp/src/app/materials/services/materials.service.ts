@@ -1,62 +1,58 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { Material } from '../interfaces/material';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MaterialsService {
 
-  private apiURL: string = 'http://localhost:8080/api'
+  private selectedMaterial = new BehaviorSubject<Material | null>(null);
 
-  constructor( private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
 
-  searchCity(query:string):Observable<Material[]>{
-    const getAllByCity: string = `${this.apiURL}/material/porCiudad/${query}`;
+  searchCity(query: string): Observable<Material[]> {
+    const getAllByCity: string = `${environment.baseUrl}/material/porCiudad/${query}`;
     return this.apiQueryGET(getAllByCity);
   }
 
-  getAll():Observable<Material[]>{
-    const getAll: string = `${this.apiURL}/material`;
+  getAll(): Observable<Material[]> {
+    const getAll: string = `${environment.baseUrl}/material`;
     return this.apiQueryGET(getAll);
   }
 
-  searchByTypeAndPurchaseDate(query:string, date:string):Observable<Material[]>{
-    const getAllByTypeAndDate: string = `${this.apiURL}/material/porTipoYfecha?type=${query}&purchaseDate=${date}`;
+  searchByTypeAndPurchaseDate(query: string, date: string): Observable<Material[]> {
+    const getAllByTypeAndDate: string = `${environment.baseUrl}/material/porTipoYfecha?type=${query}&purchaseDate=${date}`;
     return this.apiQueryGET(getAllByTypeAndDate);
   }
 
-
-  apiQueryGET(query:string):Observable<Material[]>{
-    return this.http.get<Material[]>( query )
-    .pipe(
-      catchError(() => of([]))
-    );
+  apiQueryGET(query: string): Observable<Material[]> {
+    return this.http.get<Material[]>(query)
+      .pipe(
+        catchError(() => of([]))
+      );
   };
 
-  // searchMaterialByAlphaCode(code: string): Observable<Material | null>{
-  //   const byAlphaCode: string = `${this.apiURL}/alpha/${code}`;
-  //   return this.http.get<Material[]>( byAlphaCode )
-  //   .pipe(
-  //     map( countries => countries.length > 0 ? countries[0]: null),
-  //     catchError(() => of(null))
-  //   );
-  // }
+  addMaterial(material : Material):Observable<any>{
+    console.log(material)
+    return this.http.post(`${environment.baseUrl}/material`,material);
+  }
 
-  // searchCapital(query:string): Observable<Material[]> {
-  //   const byCapitalQueryURL: string = `${this.apiURL}/capital/${query}`;
-  //   return this.apiQueryGET(byCapitalQueryURL);
-  // }
+  updateMaterial(material: Material): Observable<any>{
+    console.log(material)
+    return this.http.put<any>(`${environment.baseUrl}/material`,material);
+  }
 
-  // searchRegion(query:string): Observable<Material[]> {
-  //   const byregionQueryURL: string = `${this.apiURL}/region/${query}`;
-  //   return this.apiQueryGET(byregionQueryURL);
-  // }
+  getMaterial(): Observable<Material | null> {
+    return this.selectedMaterial.asObservable();
+  }
 
-  // searchMaterial(query:string): Observable<Material[]> {
-  //   const byMaterialQueryURL: string = `${this.apiURL}/name/${query}`;
-  //   return this.apiQueryGET(byMaterialQueryURL);
-  // }
+  setMaterial(material : Material | null) {
+    this.selectedMaterial.next(material)
+  }
+
+
 }

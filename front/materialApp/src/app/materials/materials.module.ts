@@ -6,9 +6,8 @@ import { MaterialPageComponent } from './pages/material-page/material-page.compo
 import { MaterialsRoutingModule } from './materials-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialTableComponent } from './components/materials-table/material-table.component';
-import { FormsModule } from '@angular/forms';
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialFormComponent } from './components/material-form/material-form.component';
 
 
 @NgModule({
@@ -16,13 +15,15 @@ import { FormsModule } from '@angular/forms';
     ByCityPageComponent,
     ByTypeDatePageComponent,
     MaterialPageComponent,
-    MaterialTableComponent
+    MaterialTableComponent,
+    MaterialFormComponent,
   ],
   imports: [
     CommonModule,
     MaterialsRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MaterialsModule { }

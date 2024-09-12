@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ByCityPageComponent } from './pages/by-city-page/by-city-page.component';
 import { ByTypeDatePageComponent } from './pages/by-date-type-page/by-type-date-page.component';
 import { MaterialPageComponent } from './pages/material-page/material-page.component';
-import { MaterialTableComponent } from './components/materials-table/material-table.component';
+import { MaterialFormComponent } from './components/material-form/material-form.component';
 
 const routes: Routes = [
   {
@@ -16,8 +16,22 @@ const routes: Routes = [
     component: ByTypeDatePageComponent
   },
   {
+    path: 'edit-material',
+    component: MaterialFormComponent
+  },
+  {
+    path: 'create-material',
+    component: MaterialFormComponent
+  },
+
+  {
     path: 'home',
     component: MaterialPageComponent
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   {
     path: '**',

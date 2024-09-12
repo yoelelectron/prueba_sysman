@@ -27,7 +27,7 @@ public class Material {
     @Column(nullable = false, length = 150)
     private String tipo;
 
-    @Column(nullable = false, columnDefinition = "Decimal(5,2)")
+    @Column(nullable = false, columnDefinition = "Decimal(10,2)")
     private Double precio;
 
     @Column(nullable = false, columnDefinition = "DATETIME", name = "fecha_compra")

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -26,6 +27,10 @@ public class MaterialService {
         List<Material> materials = this.materialRepository.findAll();
         return materials.stream().map(material -> mapToMaterialResponse(material)).toList();
     }
+
+    /*public Optional<Material> getById(Long id) {
+        return this.materialRepository.findById(id);
+    }*/
 
     public List<Material> findByTypeAndPurchaseDate(String type, LocalDate purchaseDate) {
         return this.materialRepository.findByTipoAndFechaCompra(type, purchaseDate);
@@ -49,7 +54,7 @@ public class MaterialService {
                     .precio(materialRequest.getPrecio())
                     .fechaCompra(materialRequest.getFechaCompra())
                     .fechaVenta(materialRequest.getFechaVenta())
-                    .estado(materialRequest.getEstado().name().toLowerCase())
+                    .estado(materialRequest.getEstado().name().toUpperCase())
                     .ciudad(materialRequest.getCiudad())
                     .build();
 
