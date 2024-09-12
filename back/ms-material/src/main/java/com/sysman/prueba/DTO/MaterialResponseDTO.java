@@ -15,20 +15,12 @@ import java.time.LocalDate;
 public class MaterialResponseDTO {
 
     private Long id;
-
     private String nombre;
-
     private String descripcion;
-
     private String tipo;
-
     private Double precio;
-
     private LocalDate fechaCompra;
-
     private LocalDate fechaVenta;
-
     private String estado;
-
     private Ciudad ciudad;
 }

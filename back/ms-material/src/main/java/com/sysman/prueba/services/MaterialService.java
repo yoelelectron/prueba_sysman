@@ -28,9 +28,6 @@ public class MaterialService {
         return materials.stream().map(material -> mapToMaterialResponse(material)).toList();
     }
 
-    /*public Optional<Material> getById(Long id) {
-        return this.materialRepository.findById(id);
-    }*/
 
     public List<Material> findByTypeAndPurchaseDate(String type, LocalDate purchaseDate) {
         return this.materialRepository.findByTipoAndFechaCompra(type, purchaseDate);
@@ -61,8 +58,6 @@ public class MaterialService {
             this.materialRepository.save(material);
             log.info("Material {} is saved", material.getId());
         }
-
-
     }
 
     public boolean exists(long id) {

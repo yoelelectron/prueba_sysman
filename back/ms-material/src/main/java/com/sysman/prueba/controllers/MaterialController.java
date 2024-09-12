@@ -55,8 +55,4 @@ public class MaterialController {
         return ResponseEntity.ok(this.materialService.findByCity(city));
     }
 
-/*    @GetMapping("/id/{id}")
-    public ResponseEntity<Optional<Material>> getById(@PathVariable("id") Long id){
-        return ResponseEntity.ok(this.materialService.getById(id));
-    }*/
 }
