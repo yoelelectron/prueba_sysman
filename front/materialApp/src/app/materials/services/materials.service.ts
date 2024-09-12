@@ -53,6 +53,4 @@ export class MaterialsService {
   setMaterial(material : Material | null) {
     this.selectedMaterial.next(material)
   }
-
-
 }
