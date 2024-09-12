@@ -16,7 +16,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MaterialServiceException.class)
-    public  ResponseEntity<String> handleMaterialServiceException(MaterialServiceException e){
+    public ResponseEntity<String> handleMaterialServiceException(MaterialServiceException e){
+        if (e.getMessage().contains("No materials found")) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

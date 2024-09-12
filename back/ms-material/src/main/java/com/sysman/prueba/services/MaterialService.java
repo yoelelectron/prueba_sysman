@@ -33,11 +33,39 @@ public class MaterialService {
     }
 
     public List<Material> findByTypeAndPurchaseDate(String type, LocalDate purchaseDate) {
-        return this.materialRepository.findByTipoAndFechaCompra(type, purchaseDate);
+        if (type == null || type.trim().isEmpty()) {
+            throw new MaterialServiceException("Type parameter cannot be null or empty");
+        }
+        if (purchaseDate == null) {
+            throw new MaterialServiceException("Purchase date cannot be null");
+        }
+
+        try {
+            List<Material> materials = this.materialRepository.findByTipoAndFechaCompra(type, purchaseDate);
+            if (materials.isEmpty()) {
+                throw new MaterialServiceException("No materials found for type: " + type + " and/or purchase date: " + purchaseDate);
+            }
+            return materials;
+        } catch (Exception e) {
+            throw new MaterialServiceException("Error fetching materials by type and purchase date", e);
+        }
     }
 
     public List<Material> findByCity(String city) {
-        return this.materialRepository.findByCiudad(city);
+        if(city == null || city.trim().isEmpty()){
+            throw new MaterialServiceException("City parameter cannot be null or empty");
+        }
+
+        try {
+            List<Material> materials = this.materialRepository.findByCiudad(city);
+            if(materials.isEmpty()){
+                throw new MaterialServiceException("No materials found for city" + city);
+            }
+            return materials;
+
+        } catch (Exception e){
+            throw  new MaterialServiceException("Error fetching materials by city: " + city, e);
+        }
     }
 
 

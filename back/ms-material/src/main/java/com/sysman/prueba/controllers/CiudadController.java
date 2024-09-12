@@ -2,6 +2,9 @@ package com.sysman.prueba.controllers;
 
 import com.sysman.prueba.DTO.CiudadResponseDTO;
 import com.sysman.prueba.services.CiudadService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,11 @@ public class CiudadController {
         this.ciudadService = ciudadService;
     }
 
+    @Operation(summary = "Obtener todas las ciudades", description = "Devuelve una lista de todas las ciudades disponibles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de ciudades encontrada exitosamente"),
+            @ApiResponse(responseCode = "204", description = "No se encontraron ciudades"),
+    })
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<CiudadResponseDTO>> getAll(){
