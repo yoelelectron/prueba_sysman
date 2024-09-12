@@ -1,8 +1,9 @@
-<button class="btn btn-success mb-3" (click)="createNewMaterial()">Crear Nuevo Material</button>
 
 <div *ngIf="materials.length === 0; else table" class="alert alert-warning text-center">
   There are no results with the query provided that matches
 </div>
+
+<button class="btn btn-success mb-3" (click)="createNewMaterial()">Crear Nuevo Material</button>
 
 <ng-template #table>
   <table class="table table-dark table-hover text-center">
