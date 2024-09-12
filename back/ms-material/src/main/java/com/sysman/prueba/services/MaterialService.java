@@ -24,10 +24,13 @@ public class MaterialService {
     }
 
     public List<MaterialResponseDTO> findAll() {
-        List<Material> materials = this.materialRepository.findAll();
-        return materials.stream().map(material -> mapToMaterialResponse(material)).toList();
+        try{
+            List<Material> materials = this.materialRepository.findAll();
+            return materials.stream().map(material -> mapToMaterialResponse(material)).toList();
+        } catch (Exception ex){
+            throw new MaterialServiceException("Error fetching materials", ex);
+        }
     }
-
 
     public List<Material> findByTypeAndPurchaseDate(String type, LocalDate purchaseDate) {
         return this.materialRepository.findByTipoAndFechaCompra(type, purchaseDate);
@@ -42,21 +45,25 @@ public class MaterialService {
 
         if(materialRequest.getFechaCompra().isAfter(materialRequest.getFechaVenta())){
             log.info("{} cannot be stored because purchase date is higher than selling date", materialRequest.getNombre());
-            throw new Error("Dates are not good");
+            throw new MaterialServiceException("Purchase date cannot be later than selling date for material: " + materialRequest.getNombre());
         } else {
-            Material material = Material.builder()
-                    .nombre(materialRequest.getNombre())
-                    .descripcion(materialRequest.getDescripcion())
-                    .tipo(materialRequest.getTipo())
-                    .precio(materialRequest.getPrecio())
-                    .fechaCompra(materialRequest.getFechaCompra())
-                    .fechaVenta(materialRequest.getFechaVenta())
-                    .estado(materialRequest.getEstado().name().toUpperCase())
-                    .ciudad(materialRequest.getCiudad())
-                    .build();
+            try{
+                Material material = Material.builder()
+                        .nombre(materialRequest.getNombre())
+                        .descripcion(materialRequest.getDescripcion())
+                        .tipo(materialRequest.getTipo())
+                        .precio(materialRequest.getPrecio())
+                        .fechaCompra(materialRequest.getFechaCompra())
+                        .fechaVenta(materialRequest.getFechaVenta())
+                        .estado(materialRequest.getEstado().name().toUpperCase())
+                        .ciudad(materialRequest.getCiudad())
+                        .build();
 
-            this.materialRepository.save(material);
-            log.info("Material {} is saved", material.getId());
+                this.materialRepository.save(material);
+                log.info("Material {} is saved", material.getId());
+            } catch (Exception ex){
+                throw new MaterialServiceException("Error saving material: " + materialRequest.getNombre(), ex);
+            }
         }
     }
 
@@ -65,11 +72,15 @@ public class MaterialService {
     }
 
     public Material update(Material material) {
-        if (exists(material.getId())) {
+        if (!exists(material.getId())) {
+            throw new MaterialServiceException("Material not found with ID: " + material.getId());
+        }
+        try {
             log.info("Material {} has been updated", material.getId());
             return this.materialRepository.save((material));
+        } catch (Exception ex){
+            throw new MaterialServiceException("Error updating material with ID: " + material.getId(), ex);
         }
-        return null;
     }
 
     private MaterialResponseDTO mapToMaterialResponse(Material material) {

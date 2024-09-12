@@ -25,34 +25,43 @@ public class MaterialController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<MaterialResponseDTO> getAll() {
-        return this.materialService.findAll();
+    public ResponseEntity<List<MaterialResponseDTO>> getAll() {
+        List<MaterialResponseDTO> materials = this.materialService.findAll();
+        if(materials.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(materials, HttpStatus.OK);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody MaterialDTO materialRequest){
+    public ResponseEntity<String> save(@RequestBody MaterialDTO materialRequest){
         this.materialService.create(materialRequest);
+        return  new ResponseEntity<>("Material created successfully", HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<Material> update(@RequestBody Material material){
-        if(this.materialService.update(material) != null){
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<String> update(@RequestBody Material material){
+        this.materialService.update(material);
+        return new ResponseEntity<>("Material updated successfully", HttpStatus.OK);
     }
 
     @GetMapping("/porTipoYfecha")
     public ResponseEntity<List<Material>> getByKindAndPurchaseDate(@RequestParam String type,
                                                                    @RequestParam LocalDate purchaseDate){
-        return ResponseEntity.ok(this.materialService.findByTypeAndPurchaseDate(type, purchaseDate));
+        List<Material> materials = this.materialService.findByTypeAndPurchaseDate(type, purchaseDate);
+        if(materials.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(materials, HttpStatus.OK);
     }
 
     @GetMapping("/porCiudad/{city}")
     public ResponseEntity<List<Material>> getByCity(@PathVariable("city") String city){
-        return ResponseEntity.ok(this.materialService.findByCity(city));
+        List<Material> materials = this.materialService.findByCity(city);
+        if(materials.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(materials, HttpStatus.OK);
     }
 
 }

@@ -19,8 +19,14 @@ public class CiudadService {
     }
 
     public List<CiudadResponseDTO> findAll() {
-        List<Ciudad> ciudades = this.ciudadRepository.findAll();
-        return ciudades.stream().map(ciudad -> mapToCiudadResponse(ciudad)).toList();
+        try {
+            List<Ciudad> ciudades = this.ciudadRepository.findAll();
+            return ciudades.stream().map(ciudad -> mapToCiudadResponse(ciudad)).toList();
+        } catch (Exception e){
+            throw new CiudadServiceException("Error fetching cities", e);
+        }
+
+
     }
 
     private CiudadResponseDTO mapToCiudadResponse(Ciudad ciudad) {
